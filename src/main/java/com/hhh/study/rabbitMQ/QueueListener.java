@@ -1,6 +1,5 @@
-package com.hhh.study.RabbitMQ;
+package com.hhh.study.rabbitMQ;
 
-import org.springframework.amqp.core.Message;
 import org.springframework.amqp.rabbit.annotation.RabbitHandler;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Component;

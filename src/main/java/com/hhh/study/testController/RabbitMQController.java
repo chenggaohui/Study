@@ -1,7 +1,7 @@
-package com.hhh.study.TestController;
+package com.hhh.study.testController;
 
 
-import com.hhh.study.RabbitMQ.QueueSender;
+import com.hhh.study.rabbitMQ.QueueSender;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;

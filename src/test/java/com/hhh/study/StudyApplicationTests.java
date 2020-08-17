@@ -1,6 +1,6 @@
 package com.hhh.study;
 
-import com.hhh.study.RabbitMQ.QueueSender;
+import com.hhh.study.rabbitMQ.QueueSender;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

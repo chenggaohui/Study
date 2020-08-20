@@ -7,6 +7,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @RestController
 public class RabbitMQController {
 
@@ -20,5 +23,11 @@ public class RabbitMQController {
         queueSender.sendMsg(msg);
         return "向MQ中发送消息: "+ msg;
 
+    }
+
+    public static void main(String[] args) {
+        Map<String,String> map =new HashMap<>(3);
+        map.put("1","2");
+        System.out.println("111");
     }
 }

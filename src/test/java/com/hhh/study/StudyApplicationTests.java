@@ -25,6 +25,13 @@ class StudyApplicationTests {
 //            queueSender.sendMsg(msg);
 //        }
         queueSender.sendMsg("困了!!!!");
+
+        System.out.println(4>>1);
+        System.out.println(4>>>1);
+        System.out.println(-4>>10);
+        System.out.println(-4>>>1);
+        System.out.println(Integer.MIN_VALUE<<1);
+//        System.out.println(Integer.MIN_VALUE<<<1);
     }
 
 }

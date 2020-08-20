@@ -48,6 +48,11 @@
             <artifactId>spring-boot-starter-amqp</artifactId>
         </dependency>
 
+        <!--springboot提升性能-->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context-indexer</artifactId>
+        </dependency>
     </dependencies>
 
     <build>

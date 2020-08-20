@@ -1,18 +1,18 @@
 package com.hhh.study.myList;
 
-public interface MyList<T> {
+public interface MyList<E> {
 
-    public boolean add(T value);
+    public boolean add(E value);
 
-    public T set(int index, T value);
+    public E set(int index, E value);
 
-    public T remove(int index);
+    public E remove(int index);
 
     public boolean isEmpty();
 
-    public boolean contains(T value);
+    public boolean contains(E value);
 
     public void clear();
 
-    public T indexOf(T value);
+    public int indexOf(E value);
 }

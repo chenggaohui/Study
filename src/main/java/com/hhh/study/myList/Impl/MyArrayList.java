@@ -2,44 +2,66 @@ package com.hhh.study.myList.Impl;
 
 import com.hhh.study.myList.MyList;
 
-public class MyArrayList<T> implements MyList {
+/**
+ * @author CGH
+ * @date 2020-08-17
+ * @param <E>
+ */
+
+public class MyArrayList<E> implements MyList<E> {
+
+    private static final int DEFAULT_SIZE=10;
 
     private int size;
 
-    private T[] elements;
+    private Object[] elements;
+
+    public MyArrayList(){
+        this(DEFAULT_SIZE);
+    }
+
+    public MyArrayList(int capacity) {
+        if (capacity<0){
+            throw new IllegalArgumentException("MyArrayList capacity cannot be less than zero, size: "+capacity);
+        }
+        this.elements = new Object[capacity];
+    }
+
 
     @Override
-    public boolean add(Object value) {
+    public boolean add(E value) {
         return false;
     }
 
     @Override
-    public Object set(int index, Object value) {
+    public E set(int index, E value) {
         return null;
     }
 
     @Override
-    public Object remove(int index) {
+    public E remove(int index) {
         return null;
     }
 
     @Override
     public boolean isEmpty() {
-        return this.size==0;
+        return false;
     }
 
     @Override
-    public boolean contains(Object value) {
+    public boolean contains(E value) {
         return false;
     }
 
     @Override
     public void clear() {
-        this.size=0;
+
     }
 
     @Override
-    public Object indexOf(Object value) {
-        return null;
+    public int indexOf(E value) {
+        return 0;
     }
+
+
 }

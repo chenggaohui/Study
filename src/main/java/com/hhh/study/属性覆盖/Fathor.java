@@ -6,4 +6,10 @@ public class Fathor {
 
     public final static String address = "fathor类";
 
+    @Override
+    public String toString() {
+        return "Fathor{" +
+                "age='" + age + '\'' +
+                '}';
+    }
 }

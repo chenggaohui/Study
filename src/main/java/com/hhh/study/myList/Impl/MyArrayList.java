@@ -2,6 +2,8 @@ package com.hhh.study.myList.Impl;
 
 import com.hhh.study.myList.MyList;
 
+import java.util.Arrays;
+
 /**
  * @author CGH
  * @date 2020-08-17
@@ -45,7 +47,7 @@ public class MyArrayList<E> implements MyList<E> {
 
     @Override
     public boolean isEmpty() {
-        return false;
+        return size == 0;
     }
 
     @Override
@@ -64,4 +66,12 @@ public class MyArrayList<E> implements MyList<E> {
     }
 
 
+
+    @Override
+    public String toString() {
+        return "MyArrayList{" +
+                "size=" + size +
+                ", elements=" + Arrays.toString(elements) +
+                '}';
+    }
 }

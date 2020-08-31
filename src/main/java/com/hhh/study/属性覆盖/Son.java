@@ -7,4 +7,12 @@ public class Son extends Fathor{
     public static String name = "Son";
 
     public final static String address = "son类";
+
+    public String getAge() {
+        return age;
+    }
+
+    public void setAge(String age) {
+        this.age = age;
+    }
 }

@@ -9,8 +9,13 @@ public class Test {
         System.out.println(son.age);
         System.out.println(son.name);
         System.out.println(son.address);
+        System.out.println(son.getAge());
+
+
+        System.out.println("===========");
         System.out.println(fathor.age);
         System.out.println(fathor.name);
         System.out.println(fathor.address);
+        System.out.println(fathor.getAge());
     }
 }

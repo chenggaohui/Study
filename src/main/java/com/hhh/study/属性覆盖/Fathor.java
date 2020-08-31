@@ -6,6 +6,14 @@ public class Fathor {
 
     public final static String address = "fathor类";
 
+    public String getAge() {
+        return address;
+    }
+
+    public void setAge(String age) {
+        this.age = age;
+    }
+
     @Override
     public String toString() {
         return "Fathor{" +

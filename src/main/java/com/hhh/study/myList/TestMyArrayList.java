@@ -26,6 +26,8 @@ public class TestMyArrayList {
 //            iterator.remove();
 //        }
 
+        System.out.println("args参数："+ args.length);
+
         Fathor[] fathors = new Fathor[]{new Fathor()};
         System.out.println(fathors[0]);
         Fathor[] fathors1 = Arrays.copyOf(fathors, 1);

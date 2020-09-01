@@ -1,11 +1,7 @@
-package com.hhh.study.myList;
+package com.hhh.study.数据结构.myList;
 
-import com.hhh.study.myList.Impl.MyArrayList;
 import com.hhh.study.属性覆盖.Fathor;
-import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
 
-import java.lang.reflect.Array;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 

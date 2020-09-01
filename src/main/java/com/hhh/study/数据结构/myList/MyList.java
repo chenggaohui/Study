@@ -1,4 +1,4 @@
-package com.hhh.study.myList;
+package com.hhh.study.数据结构.myList;
 
 public interface MyList<E> {
 

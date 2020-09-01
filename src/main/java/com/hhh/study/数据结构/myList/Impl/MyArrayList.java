@@ -1,6 +1,6 @@
-package com.hhh.study.myList.Impl;
+package com.hhh.study.数据结构.myList.Impl;
 
-import com.hhh.study.myList.MyList;
+import com.hhh.study.数据结构.myList.MyList;
 
 import java.util.Arrays;
 

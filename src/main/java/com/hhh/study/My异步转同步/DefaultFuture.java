@@ -11,35 +11,70 @@ import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
-public class DefaultFuture extends CompletableFuture<Object> {
+public class DefaultFuture<T> extends CompletableFuture<T> {
 
     private static final Logger logger = LoggerFactory.getLogger(DefaultFuture.class);
     private static final int DEFAULT_TIMEOUT = 2 * 1000;
 
     private static final Map<String, DefaultFuture> FUTURES = new ConcurrentHashMap<>();
 
+    static{
+        Thread thread = new Thread(new RemotingInvocationTimeoutScan(),"ResponseTimeoutScanTimer");
+        //将此线程设置为守护线程
+        thread.setDaemon(true);
+        thread.start();
+    }
 
-
-    private final String requestId;
+    private final String key;
     private final int timeOut;
     private final Lock lock = new ReentrantLock();
     private final Condition done = lock.newCondition();
-    private volatile Object response;
-
+    private volatile T response;
     private final long startTime = System.currentTimeMillis();
 
-    public DefaultFuture(String requestId,int timeOut){
-        this.requestId = requestId;
-        this.timeOut = timeOut <= 0 ? DEFAULT_TIMEOUT : timeOut;
-        System.out.println("放入:"+requestId);
-        FUTURES.put(requestId,this);
+    public static int getDefaultTimeout() {
+        return DEFAULT_TIMEOUT;
     }
 
-    public Object tryGet() throws InterruptedException, ExecutionException, TimeoutException {
+    public static Map<String, DefaultFuture> getFUTURES() {
+        return FUTURES;
+    }
+
+    public String getKey() {
+        return key;
+    }
+
+    public int getTimeOut() {
+        return timeOut;
+    }
+
+    public Lock getLock() {
+        return lock;
+    }
+
+    public Condition getDone() {
+        return done;
+    }
+
+    public T getResponse() {
+        return response;
+    }
+
+    public long getStartTime() {
+        return startTime;
+    }
+
+    public DefaultFuture(String key, int timeOut){
+        this.key = key;
+        this.timeOut = timeOut <= 0 ? DEFAULT_TIMEOUT : timeOut;
+        FUTURES.put(key,this);
+    }
+
+    public T tryGet() throws TimeoutException {
         return tryGet(timeOut);
     }
 
-    public Object tryGet(long timeout) throws InterruptedException, ExecutionException, TimeoutException {
+    public T tryGet(long timeout) throws  TimeoutException {
         if (timeout <= 0) {
             timeout = DEFAULT_TIMEOUT;
         }
@@ -59,15 +94,16 @@ public class DefaultFuture extends CompletableFuture<Object> {
                 lock.unlock();
             }
             if (!isDone()) {
+
                 throw new TimeoutException("异步请求超时!!!");
             }
         }
         return response;
     }
 
-    public static void received(String requestId, Object response) {
+    public static void received(String key, Object response) {
         try {
-            DefaultFuture future = FUTURES.remove(requestId);
+            DefaultFuture future = FUTURES.remove(key);
             if (future != null) {
                 future.doReceived(response);
             } else {
@@ -79,7 +115,7 @@ public class DefaultFuture extends CompletableFuture<Object> {
         }
     }
 
-    private void doReceived(Object res) {
+    private void doReceived(T res) {
         lock.lock();
         try {
             response = res;
@@ -95,5 +131,30 @@ public class DefaultFuture extends CompletableFuture<Object> {
         return response != null;
     }
 
-    //TODO 定时清理过期的请求
+
+    private static class RemotingInvocationTimeoutScan implements Runnable{
+        @Override
+        public void run() {
+            while (true) {
+                try {
+                    for (DefaultFuture future : FUTURES.values()) {
+                        if (future == null || future.isDone()) {
+                            continue;
+                        }
+                        if (System.currentTimeMillis() - future.getStartTime() > future.getTimeOut()) {
+                            // create exception response.
+                            //根据业务修改返回对象
+                            Object timeoutResponse = new Object();
+                            // set timeout status.
+                            // handle response.
+                            DefaultFuture.received(future.getKey(), timeoutResponse);
+                        }
+                    }
+                    Thread.sleep(3000);
+                } catch (Throwable e) {
+                    logger.error("Exception when scan the timeout invocation of remoting.", e);
+                }
+            }
+        }
+    }
 }

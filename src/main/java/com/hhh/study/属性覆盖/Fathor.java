@@ -6,6 +6,10 @@ public class Fathor {
 
     public final static String address = "fathor类";
 
+    static {
+        System.out.println("Fathor类加载");
+    }
+
     public String getAge() {
         return address;
     }

@@ -37,16 +37,12 @@ public class RabbitMQController {
         Object o = null;
         try{
             o = defaultFuture.tryGet();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        } catch (TimeoutException e) {
-            e.printStackTrace();
+        }catch (TimeoutException e) {
+            o = new Object();
             System.out.println("请求超时,ID:"+id);
         }
 
-        return (String)o;
+        return o.toString();
 
     }
 

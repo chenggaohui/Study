@@ -142,6 +142,8 @@ public class DefaultFuture<T> extends CompletableFuture<T> {
                             continue;
                         }
                         if (System.currentTimeMillis() - future.getStartTime() > future.getTimeOut()) {
+
+                            System.out.println("自动扫描发现请求超时的:"+future.getKey());
                             // create exception response.
                             //根据业务修改返回对象
                             Object timeoutResponse = new Object();
@@ -150,7 +152,7 @@ public class DefaultFuture<T> extends CompletableFuture<T> {
                             DefaultFuture.received(future.getKey(), timeoutResponse);
                         }
                     }
-                    Thread.sleep(3000);
+                    Thread.sleep(30);
                 } catch (Throwable e) {
                     logger.error("Exception when scan the timeout invocation of remoting.", e);
                 }

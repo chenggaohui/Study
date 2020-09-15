@@ -1,5 +1,6 @@
 package com.hhh.study.Test;
 
+import com.hhh.study.属性覆盖.Fathor;
 import org.junit.jupiter.api.Test;
 import org.springframework.util.ReflectionUtils;
 
@@ -26,14 +27,16 @@ public class Test01 {
     }
 
     public static void main(String[] args) throws ExecutionException, InterruptedException {
-        Future<Object> future = executorService.submit(new Callable<Object>() {
-            @Override
-            public Object call() throws Exception {
-                Thread.sleep(3000);
-                return "123";
-            }
-        });
-        System.out.println(future.get());
+//        Future<Object> future = executorService.submit(new Callable<Object>() {
+//            @Override
+//            public Object call() throws Exception {
+//                Thread.sleep(3000);
+//                return "123";
+//            }
+//        });
+//        System.out.println(future.get());
+        System.out.println(Fathor.address);
+
 
     }
 }

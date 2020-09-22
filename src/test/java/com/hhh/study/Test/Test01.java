@@ -1,11 +1,16 @@
 package com.hhh.study.Test;
 
+
+
 import com.hhh.study.属性覆盖.Fathor;
 import org.junit.jupiter.api.Test;
 import org.springframework.util.ReflectionUtils;
 
 import java.util.Map;
 import java.util.concurrent.*;
+import java.util.concurrent.locks.Condition;
+import java.util.concurrent.locks.LockSupport;
+import java.util.concurrent.locks.ReentrantLock;
 import java.util.function.Consumer;
 
 public class Test01 {
@@ -27,16 +32,62 @@ public class Test01 {
     }
 
     public static void main(String[] args) throws ExecutionException, InterruptedException {
-//        Future<Object> future = executorService.submit(new Callable<Object>() {
-//            @Override
-//            public Object call() throws Exception {
-//                Thread.sleep(3000);
-//                return "123";
-//            }
-//        });
-//        System.out.println(future.get());
-        System.out.println(Fathor.address);
 
+//        ReentrantLock reentrantLock = new ReentrantLock();
+//
+//        Thread t1 = new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//
+//                try {
+//                    reentrantLock.lock();
+//                    while (true) {
+//                    }
+//                } finally {
+//                    reentrantLock.unlock();
+//                }
+//            }
+//        }, "T1");
+//        t1.start();
+//
+//        Thread t2 = new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//
+//                try {
+//                    reentrantLock.lock();
+//                    while (true) {
+//                    }
+//                } finally {
+//                    reentrantLock.unlock();
+//                }
+//            }
+//        }, "T2");
+//        t2.start();
+//
+//        t1.join();
+//        t2.join();
+
+        ReentrantLock lock = new ReentrantLock();
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                lock.lock();
+                    System.out.println("前。。。");
+                    try {
+                        TimeUnit.MILLISECONDS.sleep(10000000);
+                    } catch (Exception e) {
+                        System.out.println("异常");
+                    }
+                    lock.unlock();
+
+                    System.out.println("后。。。");
+                }
+
+        });
+
+
+        thread.start();
 
     }
 }

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.Scanner;
+import java.util.concurrent.locks.ReentrantLock;
 
 @SpringBootTest
 class StudyApplicationTests {
@@ -15,7 +16,7 @@ class StudyApplicationTests {
     QueueSender queueSender;
 
     @Test
-    void contextLoads() {
+    void contextLoads() throws InterruptedException {
 
 //        while(true){
 //            String msg = scanner.nextLine();
@@ -25,6 +26,7 @@ class StudyApplicationTests {
 //            queueSender.sendMsg(msg);
 //        }
 //        queueSender.sendMsg("困了!!!!");
+
 
 
     }

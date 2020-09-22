@@ -10,6 +10,7 @@ public class Piped {
         PipedWriter writer = new PipedWriter();
         PipedReader reader = new PipedReader();
 
+        //需要进行连接，否则会抛异常
         reader.connect(writer);
 
         Thread thread = new Thread(new Print(reader),"reader线程");

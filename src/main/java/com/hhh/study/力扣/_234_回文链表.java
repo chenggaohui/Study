@@ -34,7 +34,7 @@ public class _234_回文链表 {
         System.out.println(result);
     }
 
-    public static boolean isPalindrome(ListNode head){
+    public static boolean isPalindrome2(ListNode head){
         System.out.println(head.toString());
         System.out.println("**************");
         if (head == null || head.next == null){
@@ -78,6 +78,29 @@ public class _234_回文链表 {
             System.out.println("--------------------");
         }
         return temp == null;
+    }
+
+
+    public static boolean isPalindrome(ListNode head){
+
+        if (head == null){
+            return true;
+        }
+
+        int firstHashCode = 0,seconedHashCode = 0;
+        ListNode pre = null,next = null;
+        while(head != null){
+            firstHashCode = firstHashCode * 31 + head.val;
+            next = head.next;
+            head.next = pre;
+            pre = head;
+            head = next;
+        }
+        while(pre != null){
+            seconedHashCode = seconedHashCode * 31 + pre.val;
+            pre = pre.next;
+        }
+        return firstHashCode == seconedHashCode;
     }
 
 

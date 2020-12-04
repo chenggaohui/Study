@@ -185,7 +185,9 @@ public class Test01 {
 
     @Test
     public void testDouble(){
-
+        String str1=("String" + new String("Intern")).intern();
+        String str2=("String" + new String("Intern")).intern();
+        System.out.println(str1 == str2);
 
 
     }

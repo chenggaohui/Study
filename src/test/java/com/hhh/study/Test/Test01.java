@@ -4,6 +4,7 @@ package com.hhh.study.Test;
 
 import com.hhh.study.属性覆盖.Fathor;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.BeanUtils;
 import org.springframework.util.ReflectionUtils;
 
 import java.io.UnsupportedEncodingException;
@@ -203,6 +204,119 @@ public class Test01 {
         return getway(i-1,count)+getway(i-2,count);
     }
 
+
+    public int[] findSingle(int[] arr){
+
+        if (arr == null || arr.length <= 1){
+            return arr;
+        }
+
+        int min = Integer.MAX_VALUE;
+        int max = Integer.MIN_VALUE;
+        for (int i : arr){
+            min = min <= i ? min : i;
+            max = max >= i ? max : i;
+        }
+        int length = max - min;
+        int[] index = new int[length];
+        for (int i : arr){
+            index[i-min]++;
+        }
+        List<Integer> list = new ArrayList<>();
+        for (int i = 0; i < length; i++){
+            if (index[i] == 1){
+                list.add(i+min);
+            }
+        }
+        return list.stream().mapToInt(Integer::valueOf).toArray();
+
+    }
+
+    @Test
+    public void testString(){
+
+        int[] arr = {5,4,9,1,6,8,10,7,2,3};
+        sort(arr);
+        System.out.println(Arrays.toString(arr));
+    }
+
+    public void sort(int[] arr){
+
+        for (int i = 0; i < arr.length; i++){
+            if ((arr[i] & 1) == 1){
+                int temp = arr[i];
+                int j = i-1;
+                for (; j >= 0; j--){
+                    if ((arr[j] & 1) == 0){
+                        arr[j+1] = arr[j];
+                    }else{
+                        break;
+                    }
+                }
+                arr[j+1] = temp;
+            }
+        }
+
+    }
+
+
+    @Test
+    public void testRetry(){
+
+        retry:
+        for (int i = 1; i <= 20; i++){
+            for(int j = 1; j <= 20; j++){
+                    break retry;
+                }
+            }
+        }
+
+//        for (int i = 1; i <= 20; i++){
+//            System.out.println("____"+i);
+//            if (i%5==0){
+//                continue retry;
+//            }
+//        }
+
+
+
+
+    @Test
+    public void testThread() throws InterruptedException {
+
+        Thread thread = new Thread(()->{
+            System.out.println("线程启动");
+        });
+
+        System.out.println("首次启动线程,启动前线程状态："+thread.getState().name());
+        thread.start();
+        thread.join();
+        System.out.println("再次启动线程,启动前线程状态："+thread.getState().name());
+        thread.start();
+    }
+
+    @Test
+    public void testTest(){
+        int[] arr = {0,3,4,2,1};
+        sort1(arr);
+        System.out.println(Arrays.toString(arr));
+
+    }
+
+    public void sort1(int[] arr){
+
+        if (arr == null || arr.length <=1) return;
+
+        for (int i = 1; i < arr.length-1; i++){
+            for (int j = 0; j < arr.length-i; j++){
+                if (arr[j] > arr[j+1]){
+                    arr[j] ^= arr[j+1];
+                    arr[j+1] ^= arr[j];
+                    arr[j] ^= arr[j+1];
+                }
+            }
+        }
+    }
 
 
 
